@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Contact Huly-Style - Clair</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* Définition des variables de couleurs - Thème Clair */
+
+:root {
+    --bg-color: #f0f2f5; /* Gris très clair pour le fond */
+    --card-color: #ffffff; /* Blanc pur pour la carte */
+    --accent-main: #007bff; /* Bleu vif principal pour l'accent */
+    --accent-light: #50e3c2; /* Vert Cyan/Turquoise pour accents secondaires (conservé) */
+    --text-color: #1c1e21; /* Noir très foncé pour le texte */
+    --input-bg: #e4e6eb; /* Gris clair pour les champs de saisie */
+    --placeholder-color: #606770; /* Couleur des placeholders */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* Conteneur principal avec effet de clarté/propreté */
+
+.container {
+    background-color: var(--card-color);
+    padding: 40px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 480px;
+    border: 1px solid #ddd; /* Bordure légère */
+
+    /* EFFET CLARTÉ/ÉLÉVATION (moins de glow, plus de profondeur) */
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1), /* Ombre douce pour l'élévation */
+        0 1px 3px rgba(0, 0, 0, 0.08); 
+    
+    transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+    /* Légère élévation au survol */
+    box-shadow: 
+        0 8px 12px rgba(0, 0, 0, 0.15),
+        0 3px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+h2 {
+    text-align: center;
+    color: var(--accent-main);
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 1.8em;
+    /* Suppression du text-shadow LED */
+    border-bottom: 2px solid var(--accent-main);
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+/* Champs de saisie */
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da; /* Bordure standard */
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Couleur du placeholder */
+input::placeholder, textarea::placeholder {
+    color: var(--placeholder-color);
+    opacity: 1; /* Rendre le placeholder visible sur fond clair */
+}
+
+/* Effet de focus clair et propre */
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-main);
+    /* Ombre de focus subtile et de la couleur d'accent */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); 
+    background-color: var(--card-color); /* Retour au blanc pur au focus */
+}
+
+textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+/* Bouton d'envoi */
+
+button {
+    background: linear-gradient(135deg, var(--accent-main) 0%, #0056b3 100%); 
+    color: #ffffff; /* Texte du bouton en blanc */
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Ombre du bouton */
+    transition: all 0.3s ease;
+}
+
+
+/* Effet de survol du bouton (changement de couleur + élévation) */
+
+button:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%); /* Bleu plus foncé */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4); 
+    transform: translateY(-2px);
+}
+
+
+.info-note {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.75em;
+    color: var(--placeholder-color); /* Couleur plus foncée pour la note */
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Me Contacter</h2>
+<form action="#" method="POST"> 
+
+<label for="prenom">Prénom</label>
+<input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+
+<label for="nom">Nom</label>
+<input type="text" id="nom" name="nom" placeholder="Votre nom de famille" required>
+
+<label for="message">Votre Message</label>
+<textarea id="message" name="message" placeholder="Laissez votre message pour l'équipe..." required></textarea>
+
+<button type="submit">Envoyer la Requête</button>
+
+<p class="info-note">
+*L'enregistrement des données n'est pas fonctionnel pour cet exercice.
+</p>
+</form>
+</div>
+</body>
+</html>
