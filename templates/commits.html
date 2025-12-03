@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Commits par Minute</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<div style="text-align: center;">
+<h2>Quantité de Commits par Minute</h2>
+<div id="chart_div" style="width: 900px; height: 500px; margin: 0 auto;"></div>
+</div>
+<script>
+
+      google.charts.load('current', { packages: ['corechart'] });
+
+      google.charts.setOnLoadCallback(drawChartPage);
+ 
+      function drawChartPage() {
+
+        // 1. Définir la fonction de dessin du graphique
+
+        function drawChart(data) {
+
+          var dataTable = new google.visualization.DataTable();
+
+          dataTable.addColumn('number', 'Minute'); // L'axe X est une Minute (nombre)
+
+          dataTable.addColumn('number', 'Nombre de Commits'); // L'axe Y est le compte
+ 
+          // Remplir le tableau de données
+
+          data.results.forEach((entry) => {
+
+            // Ajouter les données : [Minute (0-59), Nombre de commits]
+
+            dataTable.addRow([entry.minute, entry.count]); 
+
+          });
+ 
+          // Options du graphique (Histogramme recommandé)
+
+          var options = {
+
+            title: 'Fréquence des Commits selon la Minute de l\'Heure',
+
+            legend: { position: 'none' },
+
+            hAxis: {
+
+              title: 'Minute (0 à 59)',
+
+              viewWindow: { min: 0, max: 59 },
+
+              ticks: [0, 10, 20, 30, 40, 50, 59] // Afficher quelques repères
+
+            },
+
+            vAxis: {
+
+              title: 'Nombre de Commits',
+
+              minValue: 0
+
+            }
+
+          };
+ 
+          // Création et affichage du graphique à Colonnes
+
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+          chart.draw(dataTable, options);
+
+        }
+ 
+        // 2. Récupération des données depuis notre API Python /commits-data/
+
+        fetch('/commits-data/')
+
+          .then((response) => response.json())
+
+          .then((data) => {
+
+             // Vérifier si une erreur a été renvoyée par le serveur Python
+
+             if (data.error) {
+
+                 document.getElementById('chart_div').innerHTML = `<p style="color: red;">Erreur API : ${data.message}</p>`;
+
+                 return;
+
+             }
+
+             drawChart(data);
+
+          })
+
+          .catch((error) => {
+
+             document.getElementById('chart_div').innerHTML = '<p style="color: red;">Erreur de connexion lors de la récupération des données.</p>';
+
+             console.error('Fetch error:', error);
+
+          });
+
+      }
+</script>
+</body>
+</html>
+ 
